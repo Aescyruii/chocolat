@@ -1,3 +1,10 @@
+##
+## EPITECH PROJECT, 2024
+## make
+## File description:
+## make
+##
+
 SRC		=	test.c
 
 OBJ		=	$(SRC:.c=.o)
