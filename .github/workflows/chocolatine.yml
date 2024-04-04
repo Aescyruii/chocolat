@@ -53,3 +53,16 @@ jobs:
                 exit 1
               fi
             done
+
+  run_tests:
+    if: ${{ github.workspace != vars.MIRROR_URL }}
+    needs: check_program_compilation
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: make tests_run
+        timeout-miniutes: 2
+      - run: exit $?
