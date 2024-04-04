@@ -9,7 +9,7 @@ SRC		=	test.c
 
 OBJ		=	$(SRC:.c=.o)
 
-$(NAME)	=	make_test
+NAME	=	make_test
 
 all: $(NAME)
 
