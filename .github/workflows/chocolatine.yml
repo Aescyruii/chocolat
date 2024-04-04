@@ -48,7 +48,9 @@ jobs:
         timeout-minutes: 2
       - run: make clean
       - run: |
-            for file in ${{ env.EXECUTABLES }}; do
+            IFS=','
+            read -ra exec <<< ${{ env.EXECUTABLES }}
+            for file in exec; do
               echo $file
               if [ ! -x $file ]; then
                 exit 1
