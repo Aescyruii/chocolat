@@ -1,0 +1,51 @@
+# This is a basic workflow to help you get started with Actions
+
+name: chocolatine
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: main
+    paths-ignore:
+      - 'ga-ignore-*'
+  pull_request:
+    branches: main
+    paths-ignore:
+      - 'ga-ignore-*'
+
+env:
+  EXECUTABLES: "make_test"
+
+jobs:
+  check_coding_style:
+    if: ${{ github.repository != vars.MIRROR_URL }}
+    runs-on: ubuntu-latest
+    container: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: |
+            check.sh $(pwd) $(pwd)
+            cs="coding-style-reports.log"
+            while IFS=":" read -r filepath errline errtype errcode; do
+              echo "::error title=$errtype coding style error: $filepath#L$errline::$errcode"
+            done < $cs
+            if [ -s $cs ]; then
+              exit 1
+            fi
+
+  check_program_compilation:
+    if: ${{ github.repository != vars.MIRROR_URL }}
+    needs: check_coding_style
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+      - run: make
+        timeout-minutes: 2
+      - run: make clean
+      - run: |
+            for file in ${{ env.EXECUTABLES }}
+              if [ ! -x $file ] then
+                exit 1
+              fi
