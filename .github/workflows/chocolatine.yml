@@ -50,6 +50,7 @@ jobs:
       - run: make clean
       - name: Check executables
         run: |
+            echo ${{ github.workspace }}
             IFS=','
             read -ra exec <<< ${{ env.EXECUTABLES }}
             for file in $exec; do
