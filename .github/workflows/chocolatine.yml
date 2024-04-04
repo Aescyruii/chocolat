@@ -64,5 +64,5 @@ jobs:
         with:
           fetch-depth: 0
       - run: make tests_run
-        timeout-miniutes: 2
+        timeout-minutes: 2
       - run: exit $?
