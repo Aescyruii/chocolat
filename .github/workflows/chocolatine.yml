@@ -18,7 +18,7 @@ env:
 
 jobs:
   check_coding_style:
-    if: ${{ github.repository != vars.MIRROR_URL }}
+    if: ${{ github.workspace != vars.MIRROR_URL }}
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
     steps:
@@ -37,7 +37,7 @@ jobs:
             fi
 
   check_program_compilation:
-    if: ${{ github.repository != vars.MIRROR_URL }}
+    if: ${{ github.workspace != vars.MIRROR_URL }}
     needs: check_coding_style
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker
@@ -50,7 +50,6 @@ jobs:
       - run: make clean
       - name: Check executables
         run: |
-            echo ${{ github.repository }}
             IFS=','
             read -ra exec <<< ${{ env.EXECUTABLES }}
             for file in $exec; do
@@ -61,7 +60,7 @@ jobs:
             done
 
   run_tests:
-    if: ${{ github.repository != vars.MIRROR_URL }}
+    if: ${{ github.workspace != vars.MIRROR_URL }}
     needs: check_program_compilation
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker
@@ -75,7 +74,7 @@ jobs:
         run: exit $?
 
   push_to_mirror:
-    if: ${{ github.repository != vars.MIRROR_URL && github.event_name == 'push'}}
+    if: ${{ github.workspace != vars.MIRROR_URL && github.event_name == 'push'}}
     needs: run_tests
     runs-on: ubuntu-latest
     steps:
