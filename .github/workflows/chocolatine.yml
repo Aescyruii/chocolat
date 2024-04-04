@@ -48,7 +48,8 @@ jobs:
         timeout-minutes: 2
       - run: make clean
       - run: |
-            for file in ${{ env.EXECUTABLES }}
+            for file in ${{ env.EXECUTABLES }} do
               if [ ! -x $file ] then
                 exit 1
               fi
+            done
