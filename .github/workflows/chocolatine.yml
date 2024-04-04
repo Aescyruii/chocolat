@@ -41,6 +41,9 @@ jobs:
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - run: make
         timeout-minutes: 2
       - run: make clean
