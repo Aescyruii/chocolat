@@ -30,6 +30,6 @@ re: fclean all
 
 tests_run:
 	$(CC) -o $(TEST_NAME) -lcriterion $(TEST)
-	./(TEST_NAME)
+	./$(TEST_NAME)
 
 .PHONY: all clean fclean re
