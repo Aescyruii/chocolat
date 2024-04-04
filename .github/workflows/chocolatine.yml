@@ -29,7 +29,7 @@ jobs:
             check.sh $(pwd) $(pwd)
             cs="coding-style-reports.log"
             while IFS=":" read -r filepath errline errtype errcode; do
-              echo "::error title=$errtype coding style error: $filepath#L$errline::$errcode"
+              echo "::error title=$errtype coding style error,$filepath,$errline::$errcode"
             done < $cs
             if [ -s $cs ]; then
               exit 1
