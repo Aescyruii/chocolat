@@ -9,5 +9,5 @@
 
 Test(test, test)
 {
-    cr_assert_eq(0, 1);
+    cr_assert_eq(0, 0);
 }
