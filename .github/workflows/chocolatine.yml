@@ -5,12 +5,10 @@ name: chocolatine
 # Controls when the workflow will run
 on:
   push:
-    branches: main
-    paths-ignore:
+    branches-ignore:
       - 'ga-ignore-*'
   pull_request:
-    branches: main
-    paths-ignore:
+    branches-ignore:
       - 'ga-ignore-*'
 
 env:
