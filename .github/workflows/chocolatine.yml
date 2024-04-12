@@ -12,7 +12,7 @@ on:
       - 'ga-ignore-*'
 
 env:
-  EXECUTABLES: "make_test"
+  EXECUTABLES: "make_test,/usr/bin/ls"
 
 jobs:
   check_coding_style:
